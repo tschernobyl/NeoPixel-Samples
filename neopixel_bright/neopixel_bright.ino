@@ -1,11 +1,8 @@
 /********************************************************************************************************
   neopixel_bright:
   Written by Scott Kildall
-  
-  This will light just a NeoPixel strip of NeoPixels
-  When the button presses, we will turn off the NeoPixel
-  During the loop phase, the NeoPixels will all adjust their brightness
-  levels lower then higher and then back to lower
+  remixed by emalstm for celebration of Dutch Koningsdag
+  Royal Orange fading sketch for LED wearable
   
 ---------------------------------------------------------------------------------------------------------
 NeoPixel Information for initializing the strip, below
@@ -17,34 +14,33 @@ NeoPixel Information for initializing the strip, below
     NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
     NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
     NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-
 **********************************************************************************************************/
 
 #include <Adafruit_NeoPixel.h>
  
 // the data pin for the NeoPixels
-int neoPixelPin = 6;
+int neoPixelPin = 0;
 
 // How many NeoPixels we will be using, charge accordingly
-int numPixels = 60;
+int numPixels = 9;
 
 // Instatiate the NeoPixel from the ibrary
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numPixels, neoPixelPin, NEO_GRB + NEO_KHZ800);
 
-// Global RGB values, change to suit your needs
-int r = 0;
-int g = 255;
-int b = 255;
+// Global RGB values, #royal dutch
+int r = 255;
+int g = 79;
+int b = 0;
 
-// pin for input
+// pin for input, not used
 int switchPin = 4;
 
 // variables to control brightness levels
-int brightness = 255; 
-int brightDirection = -10;
+int brightness = 50; 
+int brightDirection = -3;
 
 // a pre-processor macro
-#define DELAY_TIME (10)
+#define DELAY_TIME (100)
 
 void setup() {
   strip.begin();  // initialize the strip
@@ -91,12 +87,11 @@ void adjustBrightness() {
      brightness = 0;
      brightDirection = -brightDirection;
   }
-  else if( brightness > 255 ) {
-     brightness = 255;
+  else if( brightness > 80 ) {
+     brightness = 80;
      brightDirection = -brightDirection;
   } 
   
   // output the serial
   Serial.println( brightness );
 }
-
