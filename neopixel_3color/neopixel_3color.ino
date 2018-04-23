@@ -16,36 +16,38 @@ NeoPixel Information for initializing the strip, below
     NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
     NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
     NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-
 **********************************************************************************************************/
 
 #include <Adafruit_NeoPixel.h>
  
 // the data pin for the NeoPixels
-int neoPixelPin = 6;
+int neoPixelPin = 0;
 
 // How many NeoPixels we will be using, charge accordingly
-int numPixels = 60;
+int numPixels = 20;
 
 // Instatiate the NeoPixel from the ibrary
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numPixels, neoPixelPin, NEO_GRB + NEO_KHZ800);
 
-// Color set #1
+//Dutch flag colors
+// Color set RED
 int r1 = 255;
 int g1 = 0;
 int b1 = 0;
 
-// Color set #2
+// Color set WHITE
 int r2 = 255;
 int g2 = 255;
-int b2 = 0;
+int b2 = 255;
 
-// Color set #3
+// Color set BLUE
 int r3 = 0;
-int g3 = 255;
+int g3 = 0;
 int b3 = 255;
 
-// our button
+
+
+// our button - not used in my program but the sketch doesn't work without
 int switchPin = 4;
 
 // a pre-processor macro
@@ -55,6 +57,8 @@ void setup() {
   strip.begin();  // initialize the strip
   strip.show();   // make sure it is visible
   strip.clear();  // Initialize all pixels to 'off'
+  strip.setBrightness(50);  //Set a more reasonable brightness - but if we're using in daylight maybe we should ramp it up
+
 }
 
 void loop() {
@@ -76,21 +80,20 @@ void allOff() {
 
 // turn 1/3 of strip different colors. this is a crude, but effective way to do this.
 void activate() {
-   // first 20 pixels = color set #1
-    for( int i = 0; i < 20; i++ ) {
+   // first 1/3 pixels = color set #1
+    for( int i = 0; i < 8 ; i++ ) {
        strip.setPixelColor(i, r1, g1, b1 );
     }
     
-    // next 20 pixels = color set #2
-    for( int i = 20; i < 40 ; i++ ) {
+    // next 1/3 pixels = color set #2
+    for( int i = 8; i < 13 ; i++ ) {
        strip.setPixelColor(i, r2, g2, b2 );
     }
     
-     // last 20 pixels = color set #3
-    for( int i = 40; i < 60; i++ ) {
+     // last 1/3 pixels = color set #3
+    for( int i = 13; i < 20; i++ ) {
        strip.setPixelColor(i, r3, g3, b3 );
     }
       
   strip.show();
 }
-
